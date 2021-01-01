@@ -153,8 +153,15 @@ const position_prototype = {
 		// Actually make the move (except we already did castling)...
 
 		if (castle_flag === false) {
-			ret.state[x2][y2] = ret.state[x1][y1];
-			ret.state[x1][y1] = "";
+			if (capture_flag) {
+				var newPiece = ret.state[x2][y2];
+				newPiece = white_flag ? newPiece.toUpperCase() : newPiece.toLowerCase();
+				ret.state[x2][y2] = ret.state[x1][y1];
+				ret.state[x1][y1] = newPiece;
+			} else {
+				ret.state[x2][y2] = ret.state[x1][y1];
+				ret.state[x1][y1] = "";
+			}
 		}
 
 		// Handle promotions...
